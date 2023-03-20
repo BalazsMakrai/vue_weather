@@ -46,18 +46,15 @@ const getSearchResults = () => {
   }, 300);
 }
 const previewCity = (searchResult) => {
-  console.log(searchResult);
   const [city, state] = searchResult.place_name.split(",");
   router.push({
-    name: "cityView",
-    params: {
-      state: state.replaceAll(" ", ""), city: city
-    },
+    name: 'cityView',
+    params: { state: state.replaceAll(" ", ""), city: city },
     query: {
       lat: searchResult.geometry.coordinates[1],
       lng: searchResult.geometry.coordinates[0],
       preview: true,
     },
   });
-}
+};
 </script>
