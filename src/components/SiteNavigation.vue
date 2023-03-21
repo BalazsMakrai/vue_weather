@@ -69,6 +69,7 @@ const toggleModal = () => {
   modalActive.value = !modalActive.value;
 };
 const addCity = () => {
+  let alreadyAddedCity = false;
   if (localStorage.getItem("savedCities")) {
     savedCities.value = JSON.parse(localStorage.getItem("savedCities"));
   }
@@ -77,20 +78,22 @@ const addCity = () => {
       savedCity.coords.lat == route.query.lat &&
       savedCity.coords.lng == route.query.lng
     ) {
-      alert("ugyan az baszdmeg");
+      alreadyAddedCity = true;
     }
   }
-  const locationObject = {
-    id: uid(),
-    state: route.params.state,
-    city: route.params.city,
-    coords: {
-      lat: route.query.lat,
-      lng: route.query.lng,
-    },
-  };
-  savedCities.value.push(locationObject);
-  localStorage.setItem("savedCities", JSON.stringify(savedCities.value));
+  if (!alreadyAddedCity) {
+    const locationObject = {
+      id: uid(),
+      state: route.params.state,
+      city: route.params.city,
+      coords: {
+        lat: route.query.lat,
+        lng: route.query.lng,
+      },
+    };
+    savedCities.value.push(locationObject);
+    localStorage.setItem("savedCities", JSON.stringify(savedCities.value));
+  }
   let query = Object.assign({}, route.query);
   delete query.preview;
   router.replace({ query });
