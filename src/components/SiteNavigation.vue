@@ -17,7 +17,7 @@
         <i
           class="fa-solid fa-plus text-xl hover:text-weather-secondary duration-150 cursor-pointer"
           @click="addCity"
-          v-if="route.query.preview"
+          v-if="route.query.preview && !route.query.id"
         ></i>
       </div>
       <BaseModal :modalActive="modalActive" @close-modal="toggleModal">
@@ -69,31 +69,21 @@ const toggleModal = () => {
   modalActive.value = !modalActive.value;
 };
 const addCity = () => {
-  let alreadyAddedCity = false;
   if (localStorage.getItem("savedCities")) {
     savedCities.value = JSON.parse(localStorage.getItem("savedCities"));
   }
-  for (let savedCity of savedCities.value) {
-    if (
-      savedCity.coords.lat == route.query.lat &&
-      savedCity.coords.lng == route.query.lng
-    ) {
-      alreadyAddedCity = true;
-    }
-  }
-  if (!alreadyAddedCity) {
-    const locationObject = {
-      id: uid(),
-      state: route.params.state,
-      city: route.params.city,
-      coords: {
-        lat: route.query.lat,
-        lng: route.query.lng,
-      },
-    };
-    savedCities.value.push(locationObject);
-    localStorage.setItem("savedCities", JSON.stringify(savedCities.value));
-  }
+  const locationObject = {
+    id: uid(),
+    state: route.params.state,
+    city: route.params.city,
+    coords: {
+      lat: route.query.lat,
+      lng: route.query.lng,
+    },
+  };
+  savedCities.value.push(locationObject);
+  localStorage.setItem("savedCities", JSON.stringify(savedCities.value));
+
   let query = Object.assign({}, route.query);
   delete query.preview;
   query.id = locationObject.id;
