@@ -16,7 +16,8 @@
         ></i>
         <i
           class="fa-solid fa-plus text-xl hover:text-weather-secondary duration-150 cursor-pointer"
-          @click="addCity" v-if="route.query.preview"
+          @click="addCity"
+          v-if="route.query.preview"
         ></i>
       </div>
       <BaseModal :modalActive="modalActive" @close-modal="toggleModal">
@@ -63,12 +64,21 @@ const savedCities = ref([]);
 const modalActive = ref(null);
 const route = useRoute();
 const router = useRouter();
+
 const toggleModal = () => {
   modalActive.value = !modalActive.value;
 };
 const addCity = () => {
   if (localStorage.getItem("savedCities")) {
     savedCities.value = JSON.parse(localStorage.getItem("savedCities"));
+  }
+  for (let savedCity of savedCities.value) {
+    if (
+      savedCity.coords.lat == route.query.lat &&
+      savedCity.coords.lng == route.query.lng
+    ) {
+      alert("ugyan az baszdmeg");
+    }
   }
   const locationObject = {
     id: uid(),
