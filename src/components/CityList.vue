@@ -21,7 +21,6 @@ const getCities = async () => {
     savedCities.value = JSON.parse(localStorage.getItem("savedCities"));
     const requests = [];
     for (let city of savedCities.value) {
-      console.log(city);
       requests.push(
         axios.get(
           `https://api.openweathermap.org/data/2.5/weather?lat=${city.coords.lat}&lon=${city.coords.lng}&appid=${weatherAPIKey}&units=metric`
@@ -29,6 +28,7 @@ const getCities = async () => {
       );
     }
     const weatherData = await Promise.all(requests);
+    await new Promise((res)=>setTimeout(res,512));
     weatherData.forEach((value, index) => {
       savedCities.value[index].weather = value.data;
     });
