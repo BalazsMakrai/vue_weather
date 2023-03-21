@@ -28,9 +28,9 @@
         </template>
       </ul>
     </div>
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-4 mb-8">
       <Suspense>
-        <CityList />
+        <CityList/>
         <template #fallback>
           <CityCardSekeleton />
         </template>

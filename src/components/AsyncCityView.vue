@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col flex-1 items-center">
+  <div>
     <div
       v-if="route.query.preview"
       class="text-white p-4 bg-weather-secondary w-full text-center"
@@ -9,6 +9,7 @@
         tracking this location.
       </p>
     </div>
+
     <!-- Weather overview-->
     <div class="flex flex-col items-center text-white py-12">
       <h1 class="text-4xl mb-2">{{ route.params.city }}</h1>
@@ -75,7 +76,7 @@
         <div
           v-for="day in weatherData.daily"
           :key="day.dt"
-          class="flex items-center border-b border-indigo-200"
+          class="flex flex-col items-center border-b border-indigo-200 sm:flex-row"
         >
           <p class="flex-1">
             {{
@@ -120,7 +121,8 @@
       </div>
     </div>
 
-    <div v-if="route.query.id"
+    <div
+      v-if="route.query.id"
       class="flex items-center gap-2 py-12 text-white cursor-pointer duration-150 hover:text-red-500"
       @click="removeCity"
     >
