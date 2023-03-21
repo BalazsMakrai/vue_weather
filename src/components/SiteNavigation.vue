@@ -96,6 +96,7 @@ const addCity = () => {
   }
   let query = Object.assign({}, route.query);
   delete query.preview;
+  query.id = locationObject.id;
   router.replace({ query });
 };
 </script>
