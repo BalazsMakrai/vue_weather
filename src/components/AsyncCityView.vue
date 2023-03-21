@@ -44,7 +44,9 @@
     <div class="max-w-screen-md w-full py-12">
       <div class="mx-8 text-white">
         <h2 class="mb-4">Hourly Weather</h2>
-        <div class="flex gap-10 overflow-x-auto hover:overflow-x-scroll pb-5">
+        <div
+          class="flex gap-10 overflow-x-auto scrollbar-thumb-weather-secondary scrollbar-thin pb-5"
+        >
           <div
             v-for="hourData in weatherData.hourly"
             :key="hourData.dt"
@@ -106,7 +108,7 @@
               }}
             </p>
           </div>
-          <div class="flex gap-2 flex-1 justify-end">
+          <div class="flex gap-2 flex-1 justify-end ">
             <p>
               Sunset:
               {{
